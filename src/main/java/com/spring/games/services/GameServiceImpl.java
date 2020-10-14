@@ -3,16 +3,9 @@ package com.spring.games.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-
-import com.spring.games.converter.GameRequestToGameConverter;
-import com.spring.games.converter.GenderEnumToGenderConverter;
-import com.spring.games.dto.GenderDto;
 import com.spring.games.dto.request.GameRequest;
 import com.spring.games.dto.response.GameResponse;
 import com.spring.games.dto.response.GenderResponse;
@@ -36,11 +29,8 @@ public class GameServiceImpl implements GameService {
 	@Autowired
 	GenderRepository genderRepository;
 	
-	
-	GameRequestToGameConverter gReqTGC = new GameRequestToGameConverter();
-	
-	
-	GenderEnumToGenderConverter gEnTGC = new GenderEnumToGenderConverter();
+	@Autowired
+	ConversionService cs;
 		
 	@Override
 	public GameResponse getGame(String title) {		
@@ -51,7 +41,7 @@ public class GameServiceImpl implements GameService {
 	public void addGame(GameRequest gameRequest) {	
 		Optional<Game> gameOptional = gameRepository.findByName(gameRequest.getName());		
 		if(gameOptional.isEmpty()) {			
-			Game game =	gReqTGC.convert(gameRequest);		
+			Game game =	 cs.convert(gameRequest, Game.class);		
 			List<GenreEnum> gendersEnumList = gameRequest.getGameGenders();		
 			List<Gender> gendersList = new ArrayList<Gender>();	
 			gendersEnumList.forEach(m -> {

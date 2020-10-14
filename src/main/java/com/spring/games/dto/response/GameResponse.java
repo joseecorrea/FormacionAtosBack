@@ -2,7 +2,6 @@ package com.spring.games.dto.response;
 
 import java.math.BigDecimal;
 import java.util.List;
-import com.spring.games.enums.GenreEnum;
 import lombok.Data;
 
 @Data
