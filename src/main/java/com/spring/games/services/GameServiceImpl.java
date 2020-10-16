@@ -15,7 +15,6 @@ import com.spring.games.enums.GenreEnum;
 import com.spring.games.exceptions.GameIsAlreadySet;
 import com.spring.games.helper.GameHelper;
 import com.spring.games.repositorys.GameRepository;
-import com.spring.games.repositorys.GenderRepository;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -27,7 +26,7 @@ public class GameServiceImpl implements GameService {
 	GameRepository gameRepository;
 	
 	@Autowired
-	GenderRepository genderRepository;
+	GenderService genderService;
 	
 	@Autowired
 	ConversionService cs;
@@ -45,12 +44,7 @@ public class GameServiceImpl implements GameService {
 			List<GenreEnum> gendersEnumList = gameRequest.getGameGenders();		
 			List<Gender> gendersList = new ArrayList<Gender>();	
 			gendersEnumList.forEach(m -> {
-				Optional<Gender> genderO = genderRepository.findByName(m.name());
-				if(genderO.isPresent()) {
-					Gender gender = genderO.get();
-					gender.getGames().add(game);
-					gendersList.add(gender);
-				}
+				genderService.ifExistAssociate(m, gendersList, game);
 			});
 			game.setGameGenders(gendersList);
 			gameRepository.save(game);	
