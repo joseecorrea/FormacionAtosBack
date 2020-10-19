@@ -4,8 +4,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.spring.games.dto.request.GameRequest;
 import com.spring.games.dto.response.GameResponseShort;
 import com.spring.games.services.GameService;
+
+import lombok.experimental.Delegate;
 
 
 @RestController
@@ -36,5 +40,14 @@ public class GamesController{
 	public Object getGendersGame(@RequestParam("name")String name){
 		return 	ResponseEntity.status(HttpStatus.OK).body(gameService.getGendersGame(name));
 	}
-		
+	
+	@PutMapping("/games")
+	public Object updateGame(@RequestParam("id")Long id,@Valid @RequestBody GameRequest gameRequest){
+		return 	ResponseEntity.status(HttpStatus.OK).body(gameService.updateGame(id,gameRequest));
+	}
+	
+	@DeleteMapping("/games")
+	public Object deleteGame(@RequestParam("name")String name){
+		return 	ResponseEntity.status(HttpStatus.OK).body(gameService.deleteGame(name));
+	}
 }
