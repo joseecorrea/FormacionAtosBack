@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.spring.games.dto.request.GameRequest;
-import com.spring.games.dto.response.GameResponseShort;
+import com.spring.games.dto.response.GenericShortResponse;
 import com.spring.games.services.GameService;
-
-import lombok.experimental.Delegate;
 
 
 @RestController
@@ -33,7 +30,7 @@ public class GamesController{
 	@PostMapping("/games")
 	public Object addGame(@Valid @RequestBody GameRequest game){
 		gameService.addGame(game);
-		return ResponseEntity.status(HttpStatus.OK).body(new GameResponseShort(game.getName(),"Añadido correctamente"));		
+		return ResponseEntity.status(HttpStatus.OK).body(new GenericShortResponse(game.getName(),"Añadido correctamente"));		
 	}
 	
 	@GetMapping("/genders")

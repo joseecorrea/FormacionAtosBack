@@ -8,7 +8,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 import com.spring.games.dto.request.GameRequest;
 import com.spring.games.dto.response.GameResponse;
-import com.spring.games.dto.response.GameResponseShort;
+import com.spring.games.dto.response.GenericShortResponse;
 import com.spring.games.dto.response.GenderResponse;
 import com.spring.games.entitys.Game;
 import com.spring.games.entitys.Gender;
@@ -61,8 +61,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public GameResponseShort updateGame(Long id, GameRequest gameRequest) {
-		GameResponseShort respuesta = new GameResponseShort();
+	public GenericShortResponse updateGame(Long id, GameRequest gameRequest) {
+		GenericShortResponse respuesta = new GenericShortResponse();
 		Optional<Game> gameOptional = gameRepository.findById(id);
 		if (gameOptional.isPresent()) {
 			Game game = gameHelper.updateProperties(gameRequest, gameOptional.get());
@@ -76,8 +76,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public GameResponseShort deleteGame(String name) {
-		GameResponseShort respuesta = new GameResponseShort();
+	public GenericShortResponse deleteGame(String name) {
+		GenericShortResponse respuesta = new GenericShortResponse();
 		Optional<Game> gameOptional = gameRepository.findByName(name);
 		if (gameOptional.isPresent()) {
 			gameRepository.delete(gameOptional.get());

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Data;
@@ -33,5 +34,8 @@ public class Game {
 	private BigDecimal rating;
 
 	private BigDecimal price;
+	
+	@OneToMany(mappedBy = "game",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+	private List<Stock> gameStocks;
 
 }
