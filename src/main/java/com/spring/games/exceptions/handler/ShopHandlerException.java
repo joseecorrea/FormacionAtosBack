@@ -2,7 +2,9 @@ package com.spring.games.exceptions.handler;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +15,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
 import com.spring.games.dto.ErrorDto;
-import com.spring.games.exceptions.game.GameIsAlreadySetException;
-import com.spring.games.exceptions.game.GameNotFoundException;
+import com.spring.games.exceptions.shop.ShopIsAlreadySetException;
+import com.spring.games.exceptions.shop.ShopNotFoundException;
 
 @ControllerAdvice
-public class GameHandlerException extends ResponseEntityExceptionHandler {
+public class ShopHandlerException  extends ResponseEntityExceptionHandler{
 
 	@ResponseStatus(HttpStatus.OK)
-	@ExceptionHandler({ GameNotFoundException.class })
+	@ExceptionHandler({ ShopNotFoundException.class })
 	@ResponseBody
-	public ErrorDto handleGameNotFound(HttpServletRequest request, GameNotFoundException exception) {
+	public ErrorDto handleNotFound(HttpServletRequest request, ShopNotFoundException exception) {
 		return new ErrorDto("01", exception.getDetalle());
 	}
 	
 	@ResponseStatus(HttpStatus.OK)
-	@ExceptionHandler({ GameIsAlreadySetException.class })
+	@ExceptionHandler({ ShopIsAlreadySetException.class })
 	@ResponseBody
-	public ErrorDto handleIsAlreadySet(HttpServletRequest request, GameIsAlreadySetException exception) {
+	public ErrorDto handleIsAlreadySet(HttpServletRequest request, ShopIsAlreadySetException exception) {
 		return new ErrorDto("02", exception.getDetalles());
 	}
 
@@ -41,5 +44,5 @@ public class GameHandlerException extends ResponseEntityExceptionHandler {
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(new ErrorDto("03", errorMessages.toString()), HttpStatus.BAD_REQUEST);
 	}
-
+	
 }

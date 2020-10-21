@@ -11,6 +11,8 @@ import com.spring.games.dto.response.ShopResponse;
 import com.spring.games.entitys.Shop;
 import com.spring.games.exceptions.generic.IsAlreadySetExeption;
 import com.spring.games.exceptions.generic.NotFoundException;
+import com.spring.games.exceptions.shop.ShopIsAlreadySetException;
+import com.spring.games.exceptions.shop.ShopNotFoundException;
 import com.spring.games.repositorys.ShopRepository;
 
 @Service
@@ -32,7 +34,7 @@ public class ShopServiceImpl implements ShopService {
 			respuesta.setName(shop.getName());
 			respuesta.setMessage("ha sido añadido");
 		}else {
-			throw new IsAlreadySetExeption("Ya existe el juego a añadir en la BD");
+			throw new ShopIsAlreadySetException();
 		}
 		return respuesta;
 	}
@@ -44,8 +46,13 @@ public class ShopServiceImpl implements ShopService {
 			ShopResponse shopResponse = cs.convert(shopO.get(), ShopResponse.class);	
 			return shopResponse;
 		}else {
-			throw new NotFoundException("La tienda indicada no existe");
+			throw new ShopNotFoundException();
 		}				
+	}
+
+	@Override
+	public Optional<Shop> getShop(Long id) {
+		return shopRepository.findById(id);
 	}
 
 }

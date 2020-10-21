@@ -10,6 +10,8 @@ import com.spring.games.converter.GenderEnumToGenderConverter;
 import com.spring.games.converter.GenderToGenderResponseConverter;
 import com.spring.games.converter.ShopRequestToShopConverter;
 import com.spring.games.converter.ShopToShopResponseConverter;
+import com.spring.games.converter.StockRequestToStockConverter;
+import com.spring.games.converter.StockToStockResponse;
 
 
 @Configuration
@@ -23,6 +25,8 @@ public class AppConfiguration implements WebMvcConfigurer  {
 		registry.addConverter(new GenderToGenderResponseConverter());
 		registry.addConverter(new ShopRequestToShopConverter());
 		registry.addConverter(new ShopToShopResponseConverter());
+		registry.addConverter(new StockRequestToStockConverter());
+		registry.addConverter(new StockToStockResponse());
 	}
 	
 }

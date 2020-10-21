@@ -12,7 +12,7 @@ import com.spring.games.dto.response.GameResponse;
 import com.spring.games.dto.response.GenderResponse;
 import com.spring.games.entitys.Game;
 import com.spring.games.entitys.Gender;
-import com.spring.games.exceptions.GameNotFoundException;
+import com.spring.games.exceptions.game.GameNotFoundException;
 
 @Service
 public class GameHelper {

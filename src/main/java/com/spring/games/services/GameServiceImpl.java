@@ -13,7 +13,7 @@ import com.spring.games.dto.response.GenderResponse;
 import com.spring.games.entitys.Game;
 import com.spring.games.entitys.Gender;
 import com.spring.games.enums.GenreEnum;
-import com.spring.games.exceptions.GameIsAlreadySet;
+import com.spring.games.exceptions.game.GameIsAlreadySetException;
 import com.spring.games.helper.GameHelper;
 import com.spring.games.repositorys.GameRepository;
 
@@ -50,7 +50,7 @@ public class GameServiceImpl implements GameService {
 			game.setGameGenders(gendersList);
 			gameRepository.save(game);	
 		}else {
-			throw new GameIsAlreadySet();
+			throw new GameIsAlreadySetException();
 		}	
 	}
 
@@ -87,6 +87,11 @@ public class GameServiceImpl implements GameService {
 			respuesta.setMessage("No se ha encontrado el juego a eliminar");
 		}
 		return respuesta;
+	}
+
+	@Override
+	public Optional<Game> getGame(Long id) {
+		return gameRepository.findById(id);
 	}
 
 }

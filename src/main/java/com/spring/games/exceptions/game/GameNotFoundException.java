@@ -1,4 +1,4 @@
-package com.spring.games.exceptions;
+package com.spring.games.exceptions.game;
 
 import com.spring.games.exceptions.generic.NotFoundException;
 
