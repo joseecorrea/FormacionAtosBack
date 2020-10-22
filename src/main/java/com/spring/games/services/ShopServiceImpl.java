@@ -9,8 +9,6 @@ import com.spring.games.dto.request.ShopRequest;
 import com.spring.games.dto.response.GenericShortResponse;
 import com.spring.games.dto.response.ShopResponse;
 import com.spring.games.entitys.Shop;
-import com.spring.games.exceptions.generic.IsAlreadySetExeption;
-import com.spring.games.exceptions.generic.NotFoundException;
 import com.spring.games.exceptions.shop.ShopIsAlreadySetException;
 import com.spring.games.exceptions.shop.ShopNotFoundException;
 import com.spring.games.repositorys.ShopRepository;
